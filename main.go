@@ -1,4 +1,4 @@
-package main
+package pprint
 
 /*
 	Version: 0.2.0
@@ -60,9 +60,4 @@ func printData(mapData map[string]interface{}, depth *int) {
 	} else {
 		fmt.Printf("}\n")
 	}
-}
-
-func main() {
-	example := map[string]interface{}{"get": map[string]interface{}{"some": "brother"}}
-	Print(example)
 }
