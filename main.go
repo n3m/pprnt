@@ -1,5 +1,12 @@
 package pprint
 
+/*
+	Version: 0.1.0
+	Author: Alan Maldonado
+
+	== OpenSource Project ==
+*/
+
 import (
 	"fmt"
 	"reflect"
