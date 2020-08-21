@@ -1,4 +1,4 @@
-# go-pprint
+# pprnt
 Pretty Print for Golang (Maps, Models and Normal Variables)
 
 ## How to install
