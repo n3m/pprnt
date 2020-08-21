@@ -1,7 +1,7 @@
-package pprint
+package main
 
 /*
-	Version: 0.1.0
+	Version: 0.2.0
 	Author: Alan Maldonado
 
 	== OpenSource Project ==
@@ -17,10 +17,14 @@ import (
 
 //Print ...
 func Print(data interface{}) {
+	test := map[string]interface{}{}
 	if reflect.ValueOf(data).Kind() == reflect.Struct {
 		mapData := structs.Map(data)
 		depth := 1
 		printData(mapData, &depth)
+	} else if reflect.ValueOf(data).Type() == reflect.TypeOf(test) {
+		depth := 1
+		printData(data.(map[string]interface{}), &depth)
 	} else {
 		fmt.Printf("%+v", data)
 	}
@@ -56,4 +60,9 @@ func printData(mapData map[string]interface{}, depth *int) {
 	} else {
 		fmt.Printf("}\n")
 	}
+}
+
+func main() {
+	example := map[string]interface{}{"get": map[string]interface{}{"some": "brother"}}
+	Print(example)
 }
