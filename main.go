@@ -1,7 +1,7 @@
 package pprnt
 
 /*
-	Version: 0.2.3
+	Version: 1.0.0
 	Author: Alan Maldonado
 
 	== OpenSource Project ==
