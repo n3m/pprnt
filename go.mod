@@ -1,4 +1,4 @@
-module testing-area/pretty-print
+module github.com/DrN3MESiS/pprnt
 
 go 1.13
 
