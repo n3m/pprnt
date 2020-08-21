@@ -41,3 +41,4 @@ Tired of printing structs or maps in go without any identation? Well, I was. I w
 Imagine that you have a really big golang struct and you want to compare data between the same variable after some changes.
 Without identation it would take a lot of effort to find the keys that you're looking for, and I was tired of that.
 
+TL;DR: I hate printing structs or maps in go, and I created a solution.
