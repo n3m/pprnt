@@ -15,7 +15,7 @@ Pretty Print is a Golang Package designed to print Maps and Structs as if they w
 ```go
 package main
 
-import "github.com/DrN3MESiS/go-pprint"
+import "github.com/DrN3MESiS/pprnt"
 
 func main(){
   example := map[string]interface{}{"get": map[string]interface{}{"some":"brother"}}
