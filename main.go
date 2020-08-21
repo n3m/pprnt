@@ -1,7 +1,7 @@
-package pprint
+package pprnt
 
 /*
-	Version: 0.2.1
+	Version: 0.2.2
 	Author: Alan Maldonado
 
 	== OpenSource Project ==
@@ -16,6 +16,8 @@ import (
 )
 
 //Print ...
+// ===
+// Accepts an interface (any variable) as parameter
 func Print(data interface{}) {
 	test := map[string]interface{}{}
 	if reflect.ValueOf(data).Kind() == reflect.Struct {
