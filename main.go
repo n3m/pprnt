@@ -1,7 +1,7 @@
 package pprint
 
 /*
-	Version: 0.2.0
+	Version: 0.2.1
 	Author: Alan Maldonado
 
 	== OpenSource Project ==
