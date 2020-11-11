@@ -35,6 +35,14 @@ func Print(data interface{}) error {
 		depth := 1
 		printData(data.(map[string]interface{}), &depth)
 
+	} else if reflect.ValueOf(data).Type() == reflect.TypeOf(map[string]string{}) {
+		depth := 1
+		toSend := map[string]interface{}{}
+		for key, value := range data.(map[string]string) {
+			toSend[key] = value
+		}
+		printData(toSend, &depth)
+
 	} else {
 		fmt.Printf("%+v", data)
 	}
