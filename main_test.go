@@ -27,3 +27,27 @@ func TestPrint(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestCleaner(t *testing.T) {
+	curMap := map[string]interface{}{
+		"test1": nil,
+		"test2": 1,
+		"test3": map[string]interface{}{
+			"test3.1": "lol",
+			"test3.2": nil,
+			"test3.3": []interface{}{
+				nil,
+				1,
+				2,
+			},
+		},
+	}
+
+	Print(curMap)
+	curMap, err := SuperDepthMapCleaning(curMap)
+	if err != nil {
+		t.Fatal(err)
+	}
+	Print(curMap)
+
+}
