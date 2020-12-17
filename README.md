@@ -1,10 +1,10 @@
-# pprnt
+# pprnt ![travis](https://travis-ci.com/DrN3MESiS/pprnt.svg?branch=master)
 
 Pretty Print for Golang (Maps, Models and Normal Variables)
 
 ## How to install
 
-##### Version: 3.1.0
+##### Version: 4.0.0
 
 `go get github.com/DrN3MESiS/pprnt`
 
