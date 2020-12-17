@@ -1,77 +1,45 @@
 package printer
 
 import (
-	"errors"
 	"fmt"
-	"log"
+	"os"
 	"reflect"
-	"strings"
 
 	"github.com/DrN3MESiS/pprnt/helpers"
+	"github.com/mattn/go-isatty"
 )
 
 var (
 	//IdentString ...
 	IdentString string = "  "
+	//NoColor ...
+	NoColor bool = !isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd())
 )
 
-func PrintData(mapData map[string]interface{}, depth *int) error {
-	errMessage := "[PrintData()] > "
-	depthStr := ""
-	tempDepth := *depth
-
-	for i := 0; i < *depth; i++ {
-		depthStr += "   "
-	}
-
-	if *depth == 1 {
-		fmt.Printf("{\n")
-	}
-
-	for key, value := range mapData {
-		if reflect.ValueOf(value).Kind() == reflect.Struct {
-			mapData, err := helpers.StructToMap(value)
-			if err != nil {
-				log.Printf("%+v", errMessage+err.Error())
-				return errors.New(errMessage + err.Error())
-			}
-			PrintData(mapData, depth)
-		} else {
-			switch value.(type) {
-			case map[string]interface{}:
-				fmt.Printf("%+v\"%+v\": {\n", depthStr, key)
-				*depth++
-				PrintData(value.(map[string]interface{}), depth)
-				break
-			default:
-				fmt.Printf("%+v\"%+v\": %+v\n", depthStr, key, value)
-				break
-			}
-		}
-
-	}
-
-	if tempDepth > 1 {
-		fmt.Printf(strings.Repeat("   ", tempDepth-1) + "}\n")
-	} else {
-		fmt.Printf("}\n")
-	}
-
-	return nil
-}
+const (
+	colorReset  string = "\033[0m"
+	colorRed    string = "\033[31m" //Not supported
+	colorGreen  string = "\033[32m" //String
+	colorYellow string = "\033[33m" //Keys
+	colorBlue   string = "\033[34m" //Bool
+	colorPurple string = "\033[35m" //Int floats
+	colorCyan   string = "\033[36m" //Brackets or Corch
+	colorGray   string = "\033[37m"
+	colorWhite  string = "\033[97m"
+)
 
 //PrintMap ...
 func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 	stringToPrint := _CreateDepthString(depth)
 
-	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "{"))
+	_PrintSymbol("{", stringToPrint)
 
 	//INIT
 	newIdentDepth := depth + 1
 	newDepthString := _CreateDepthString(newIdentDepth)
 	for key, value := range MAP {
 
-		fmt.Print(fmt.Sprintf("%s'%+v': ", newDepthString, key))
+		_PrintMapKey(key, newDepthString)
 
 		newMAPIdentDepth := depth + 1
 		switch reflect.ValueOf(value).Kind() {
@@ -104,9 +72,9 @@ func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 	//FINISH
 
 	if depth > 0 {
-		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "},"))
+		_PrintSymbol("},", stringToPrint)
 	} else {
-		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "}"))
+		_PrintSymbol("}", stringToPrint)
 	}
 	return nil
 }
@@ -114,7 +82,7 @@ func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 //PrintArray ...
 func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
 	stringToPrint := _CreateDepthString(depth)
-	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "["))
+	_PrintSymbol("[", stringToPrint)
 
 	//INIT
 	newIdentDepth := depth + 1
@@ -152,9 +120,9 @@ func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
 	//FINISH
 
 	if depth > 0 {
-		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "],"))
+		_PrintSymbol("],", stringToPrint)
 	} else {
-		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "]"))
+		_PrintSymbol("]", stringToPrint)
 	}
 	return nil
 }
@@ -177,4 +145,98 @@ func _CreateDepthString(depth int) string {
 	}
 
 	return depthString
+}
+
+func _PrintSymbol(symbol, stringToPrint string) {
+	if NoColor {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, symbol))
+	} else {
+		fmt.Println(colorCyan, fmt.Sprintf("%s%+v", stringToPrint, symbol))
+	}
+}
+
+func _PrintMapKey(key, newDepthString string) {
+	if NoColor {
+		fmt.Print(fmt.Sprintf("%s'%+v': ", newDepthString, key))
+	} else {
+		fmt.Print(colorYellow, fmt.Sprintf("%s'%+v': ", newDepthString, key))
+	}
+}
+
+func _PrintValue(value interface{}, detailMode bool) {
+	switch reflect.ValueOf(value).Kind() {
+	case
+		reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64:
+
+		if detailMode {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%#v,", value))
+			} else {
+				fmt.Println(colorPurple, fmt.Sprintf("%#v,", value))
+			}
+		} else {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%+v,", value))
+			} else {
+				fmt.Println(colorPurple, fmt.Sprintf("%+v,", value))
+			}
+		}
+		break
+	case reflect.Bool:
+		if detailMode {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%#v,", value))
+			} else {
+				fmt.Println(colorBlue, fmt.Sprintf("%#v,", value))
+			}
+		} else {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%+v,", value))
+			} else {
+				fmt.Println(colorBlue, fmt.Sprintf("%+v,", value))
+			}
+		}
+		break
+	case reflect.Float32, reflect.Float64:
+		if detailMode {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%#v,", value))
+			} else {
+				fmt.Println(colorPurple, fmt.Sprintf("%#v,", value))
+			}
+		} else {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%+v,", value))
+			} else {
+				fmt.Println(colorPurple, fmt.Sprintf("%+v,", value))
+			}
+		}
+		break
+	case reflect.String:
+		if detailMode {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%#v,", value))
+			} else {
+				fmt.Println(colorGreen, fmt.Sprintf("%#v,", value))
+			}
+		} else {
+			if NoColor {
+				fmt.Println(fmt.Sprintf("%+v,", value))
+			} else {
+				fmt.Println(colorGreen, fmt.Sprintf("%+v,", value))
+			}
+		}
+		break
+	default:
+
+		if NoColor {
+			fmt.Println("{{Type not supported by PPRNT}}")
+		} else {
+			fmt.Println(colorRed, "{{Type not supported by PPRNT}}")
+		}
+
+		break
+	}
+
 }

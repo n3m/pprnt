@@ -1,7 +1,7 @@
 package pprnt
 
 import (
-	"log"
+	"fmt"
 	"testing"
 )
 
@@ -48,15 +48,15 @@ func TestPrintNormal(t *testing.T) {
 	}
 
 	for key, test := range tests {
-		log.Printf("> Test: %+v", key)
+		fmt.Printf("> Test: %+v\n", key)
 		Print(test)
 	}
 
-	log.Printf("= = =")
+	fmt.Printf("= = =\n")
 
 	DetailMode(1)
 	for key, test := range tests {
-		log.Printf("> Test: %+v", key)
+		fmt.Printf("> Test: %+v\n", key)
 		Print(test)
 	}
 }
@@ -87,7 +87,7 @@ func TestPrintMapStruct(t *testing.T) {
 	}
 
 	for key, test := range tests {
-		log.Printf("\n\n\n> Test: %+v", key)
+		fmt.Printf("\n\n\n> Test: %+v\n", key)
 		Print(test)
 	}
 }
@@ -128,7 +128,7 @@ func TestPrintArray(t *testing.T) {
 	}
 
 	for key, test := range tests {
-		log.Printf("\n\n\n> Test: %+v", key)
+		fmt.Printf("\n\n\n> Test: %+v\n", key)
 		Print(test)
 	}
 }
