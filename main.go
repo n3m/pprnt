@@ -23,12 +23,12 @@ var (
 	initialDepth int  = 0
 )
 
-//DetailMode ...
+//SetDetailMode ...
 /*
 Code: 1 = Enables Detail Mode
 Code: 0 = Disables Detail Mode
 */
-func DetailMode(code int) {
+func SetDetailMode(code int) {
 	switch code {
 	case 1:
 		detailMode = true
@@ -39,11 +39,11 @@ func DetailMode(code int) {
 	}
 }
 
-//IdentLength ...
+//SetIdentLength ...
 /*
 Defines the length of each identation level
 */
-func IdentLength(length int) {
+func SetIdentLength(length int) {
 	printer.IdentString = strings.Repeat(" ", length)
 }
 

@@ -54,7 +54,7 @@ func TestPrintNormal(t *testing.T) {
 
 	fmt.Printf("= = =\n")
 
-	DetailMode(1)
+	SetDetailMode(1)
 	for key, test := range tests {
 		fmt.Printf("> Test: %+v\n", key)
 		Print(test)

@@ -69,11 +69,7 @@ func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 			break
 		//Case of Regular Value
 		default:
-			if detailMode {
-				fmt.Printf("%#v,\n", value)
-			} else {
-				fmt.Printf("%+v,\n", value)
-			}
+			_PrintValue(value, detailMode)
 			break
 		}
 
@@ -117,11 +113,7 @@ func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
 			break
 		//Case of Regular Value
 		default:
-			if detailMode {
-				fmt.Printf("%#v,\n", value)
-			} else {
-				fmt.Printf("%+v,\n", value)
-			}
+			_PrintValue(value, detailMode)
 			break
 		}
 
@@ -233,16 +225,27 @@ func _PrintValue(value interface{}, detailMode bool) {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%+v,", value))
 			} else {
-				fmt.Println(ColorGreen, fmt.Sprintf("%+v,", value))
+				fmt.Println(ColorGreen, fmt.Sprintf("\"%+v\",", value))
 			}
 		}
 		break
 	default:
+		test := "<nil>"
+		obtainedVal := fmt.Sprintf("%+v", value)
 
-		if NoColor {
-			fmt.Println("{{Type not supported by PPRNT}}")
+		if obtainedVal == test {
+			if NoColor {
+				fmt.Println("<nil>,")
+			} else {
+				fmt.Println(ColorRed, "<nil>,")
+			}
+
 		} else {
-			fmt.Println(ColorRed, "{{Type not supported by PPRNT}}")
+			if NoColor {
+				fmt.Println("{{Type not supported by PPRNT}}")
+			} else {
+				fmt.Println(ColorRed, "{{Type not supported by PPRNT}}")
+			}
 		}
 
 		break
