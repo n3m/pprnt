@@ -17,15 +17,24 @@ var (
 )
 
 const (
-	colorReset  string = "\033[0m"
-	colorRed    string = "\033[31m" //Not supported
-	colorGreen  string = "\033[32m" //String
-	colorYellow string = "\033[33m" //Keys
-	colorBlue   string = "\033[34m" //Bool
-	colorPurple string = "\033[35m" //Int floats
-	colorCyan   string = "\033[36m" //Brackets or Corch
-	colorGray   string = "\033[37m"
-	colorWhite  string = "\033[97m"
+	//ColorReset ...
+	ColorReset string = "\033[0m"
+	//ColorRed ...
+	ColorRed string = "\033[31m" //Not supported
+	//ColorGreen ...
+	ColorGreen string = "\033[32m" //String
+	//ColorYellow ...
+	ColorYellow string = "\033[33m" //Keys
+	//ColorBlue ...
+	ColorBlue string = "\033[34m" //Bool
+	//ColorPurple ...
+	ColorPurple string = "\033[35m" //Int floats
+	//ColorCyan ...
+	ColorCyan string = "\033[36m" //Brackets or Corch
+	//ColorGray ...
+	ColorGray string = "\033[37m"
+	//ColorWhite ...
+	ColorWhite string = "\033[97m"
 )
 
 //PrintMap ...
@@ -151,7 +160,7 @@ func _PrintSymbol(symbol, stringToPrint string) {
 	if NoColor {
 		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, symbol))
 	} else {
-		fmt.Println(colorCyan, fmt.Sprintf("%s%+v", stringToPrint, symbol))
+		fmt.Println(ColorCyan, fmt.Sprintf("%s%+v", stringToPrint, symbol))
 	}
 }
 
@@ -159,7 +168,7 @@ func _PrintMapKey(key, newDepthString string) {
 	if NoColor {
 		fmt.Print(fmt.Sprintf("%s'%+v': ", newDepthString, key))
 	} else {
-		fmt.Print(colorYellow, fmt.Sprintf("%s'%+v': ", newDepthString, key))
+		fmt.Print(ColorYellow, fmt.Sprintf("%s'%+v': ", newDepthString, key))
 	}
 }
 
@@ -173,13 +182,13 @@ func _PrintValue(value interface{}, detailMode bool) {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%#v,", value))
 			} else {
-				fmt.Println(colorPurple, fmt.Sprintf("%#v,", value))
+				fmt.Println(ColorPurple, fmt.Sprintf("%#v,", value))
 			}
 		} else {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%+v,", value))
 			} else {
-				fmt.Println(colorPurple, fmt.Sprintf("%+v,", value))
+				fmt.Println(ColorPurple, fmt.Sprintf("%+v,", value))
 			}
 		}
 		break
@@ -188,13 +197,13 @@ func _PrintValue(value interface{}, detailMode bool) {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%#v,", value))
 			} else {
-				fmt.Println(colorBlue, fmt.Sprintf("%#v,", value))
+				fmt.Println(ColorBlue, fmt.Sprintf("%#v,", value))
 			}
 		} else {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%+v,", value))
 			} else {
-				fmt.Println(colorBlue, fmt.Sprintf("%+v,", value))
+				fmt.Println(ColorBlue, fmt.Sprintf("%+v,", value))
 			}
 		}
 		break
@@ -203,13 +212,13 @@ func _PrintValue(value interface{}, detailMode bool) {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%#v,", value))
 			} else {
-				fmt.Println(colorPurple, fmt.Sprintf("%#v,", value))
+				fmt.Println(ColorPurple, fmt.Sprintf("%#v,", value))
 			}
 		} else {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%+v,", value))
 			} else {
-				fmt.Println(colorPurple, fmt.Sprintf("%+v,", value))
+				fmt.Println(ColorPurple, fmt.Sprintf("%+v,", value))
 			}
 		}
 		break
@@ -218,13 +227,13 @@ func _PrintValue(value interface{}, detailMode bool) {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%#v,", value))
 			} else {
-				fmt.Println(colorGreen, fmt.Sprintf("%#v,", value))
+				fmt.Println(ColorGreen, fmt.Sprintf("%#v,", value))
 			}
 		} else {
 			if NoColor {
 				fmt.Println(fmt.Sprintf("%+v,", value))
 			} else {
-				fmt.Println(colorGreen, fmt.Sprintf("%+v,", value))
+				fmt.Println(ColorGreen, fmt.Sprintf("%+v,", value))
 			}
 		}
 		break
@@ -233,7 +242,7 @@ func _PrintValue(value interface{}, detailMode bool) {
 		if NoColor {
 			fmt.Println("{{Type not supported by PPRNT}}")
 		} else {
-			fmt.Println(colorRed, "{{Type not supported by PPRNT}}")
+			fmt.Println(ColorRed, "{{Type not supported by PPRNT}}")
 		}
 
 		break

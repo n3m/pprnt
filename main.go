@@ -8,6 +8,7 @@ package pprnt
 */
 
 import (
+	"fmt"
 	"log"
 	"reflect"
 	"strings"
@@ -74,11 +75,20 @@ func Print(arg interface{}) {
 			return
 		}
 		break
-	default:
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64, reflect.Bool,
+		reflect.Float32, reflect.Float64, reflect.String:
 		err := printer.PrintNormal(arg, initialDepth, detailMode)
 		if err != nil {
 			log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
 			return
+		}
+		break
+	default:
+		if printer.NoColor {
+			fmt.Println("{{Type not supported by PPRNT}}")
+		} else {
+			fmt.Println(printer.ColorRed, "{{Type not supported by PPRNT}}")
 		}
 		break
 	}
