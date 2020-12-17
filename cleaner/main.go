@@ -1,13 +1,10 @@
 package cleaner
 
-import "log"
-
 //CleanMap ...
 func CleanMap(clmap map[string]interface{}) map[string]interface{} {
 	newMap := map[string]interface{}{}
 	for key, value := range clmap {
 		if value == nil {
-			log.Printf("> Skipped field '%+v' cuz nil", key)
 			continue
 		}
 
