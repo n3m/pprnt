@@ -5,30 +5,18 @@ import (
 	"testing"
 )
 
-type Server struct {
+type StructToTest struct {
 	Name    string
 	ID      int32
 	Enabled bool
-	Server  *Server2
+	Server  *InnerStructForTesting
 }
 
-type Server2 struct {
+type InnerStructForTesting struct {
 	ID string
 }
 
-func TestPrint(t *testing.T) {
-
-	example2 := Server{Name: "John", ID: 255, Enabled: true, Server: &Server2{ID: "test"}}
-
-	// example := map[string]interface{}{"get": map[string]interface{}{"some": "brother"}}
-	err := Print(example2)
-	if err != nil {
-		log.Printf("> %+v", err)
-		t.Fatal(err)
-	}
-}
-
-func TestCleaner(t *testing.T) {
+func TestSuperDepthMapCleaning(t *testing.T) {
 	curMap := map[string]interface{}{
 		"test1": nil,
 		"test2": 1,
@@ -49,5 +37,30 @@ func TestCleaner(t *testing.T) {
 		t.Fatal(err)
 	}
 	Print(curMap)
+}
+
+func TestPrintNormal(t *testing.T) {
+	tests := map[string]interface{}{
+		"int":    1,
+		"float":  5.2,
+		"bool":   false,
+		"string": "some string",
+	}
+
+	for key, test := range tests {
+		log.Printf("> Test: %+v", key)
+		Print(test)
+	}
+
+	log.Printf("= = =")
+
+	DetailMode(1)
+	for key, test := range tests {
+		log.Printf("> Test: %+v", key)
+		Print(test)
+	}
+}
+
+func TestPrintMap(t *testing.T) {
 
 }

@@ -10,6 +10,11 @@ import (
 	"github.com/DrN3MESiS/pprnt/helpers"
 )
 
+var (
+	//IdentString ...
+	IdentString string = "  "
+)
+
 func PrintData(mapData map[string]interface{}, depth *int) error {
 	errMessage := "[PrintData()] > "
 	depthStr := ""
@@ -53,4 +58,40 @@ func PrintData(mapData map[string]interface{}, depth *int) error {
 	}
 
 	return nil
+}
+
+//PrintMap ...
+func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
+	stringToPrint := _CreateDepthString(depth)
+	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "{"))
+	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "}"))
+	return nil
+}
+
+//PrintArray ...
+func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
+	stringToPrint := _CreateDepthString(depth)
+	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "["))
+	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "]"))
+	return nil
+}
+
+//PrintNormal ...
+func PrintNormal(value interface{}, depth int, detailMode bool) error {
+	stringToPrint := _CreateDepthString(depth)
+	if detailMode {
+		fmt.Println(fmt.Sprintf("%s%#v", stringToPrint, value))
+	} else {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, value))
+	}
+	return nil
+}
+
+func _CreateDepthString(depth int) string {
+	depthString := ""
+	for i := 0; i < depth; i++ {
+		depthString += IdentString
+	}
+
+	return depthString
 }
