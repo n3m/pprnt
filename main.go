@@ -4,7 +4,6 @@ package pprnt
 	Version: 3.1.0
 	Author: Alan Maldonado
 
-	== OpenSource Project ==
 */
 
 import (
@@ -24,8 +23,13 @@ var (
 
 //SetDetailMode ...
 /*
-Code: 1 = Enables Detail Mode
-Code: 0 = Disables Detail Mode
+This function allows the developer to change the printing "Detail Mode", which in summary,
+prints the type of the value that it has read.
+
+Param: "code"
+Expects an integer: '1' to enable "Detail Mode" or '0' to disable "Detail Mode"
+
+TL;DR: '1' to enable, '0' to disable
 */
 func SetDetailMode(code int) {
 	switch code {
@@ -40,15 +44,30 @@ func SetDetailMode(code int) {
 
 //SetIdentLength ...
 /*
-Defines the length of each identation level
+This function allows the developer to change the number of spaces defined as "Identantion"
+while printing a value.
+
+Param: "length"
+Expects a positive integer.
+
+TL;DR: The given value in the parameter will be the number of spaces in the "Identation"
 */
 func SetIdentLength(length int) {
+	if length < 0 {
+		panic("SetIdentLength() :: Function expects a positive length value")
+	}
 	printer.IdentString = strings.Repeat(" ", length)
 }
 
 //Print ...
 /*
-Print single object or value
+This function allows the developer to print any type of variable with a prettier printing
+structure
+
+Param: "arg"
+Expects any type of variable of any type of value.
+
+TL;DR: Prints a single parameter
 */
 func Print(arg interface{}) {
 	errMessage := "[PPRNT]"
@@ -93,9 +112,15 @@ func Print(arg interface{}) {
 
 //MPrint ...
 /*
-MPrint multiple objects or values
+This function allows the developer to print an 'N' amount of variables with a prettier printing
+structure
+
+Param: "args"
+Expects an 'N' amount of paramters of any type
+
+TL;DR: Prints an 'N' amount of given parameters
 */
-func MPrint(args []interface{}) {
+func MPrint(args ...interface{}) {
 	errMessage := "[PPRNT]"
 	for _, arg := range args {
 		switch reflect.ValueOf(arg).Kind() {
@@ -139,6 +164,15 @@ func MPrint(args []interface{}) {
 }
 
 //SuperDepthMapCleaning ...
-func SuperDepthMapCleaning(curMap map[string]interface{}) (map[string]interface{}, error) {
-	return cleaner.CleanMap(curMap), nil
+/*
+This function allows the developer to "Clean" a map[string]interface{} structure from any 'nil' fields.
+Basically it removes the fields with value of type 'nil'.
+
+Param: "aMap"
+Expects a map[string]interface{}
+
+TL;DR: Cleans a map from all nil key:values
+*/
+func SuperDepthMapCleaning(aMap map[string]interface{}) (map[string]interface{}, error) {
+	return cleaner.CleanMap(aMap), nil
 }
