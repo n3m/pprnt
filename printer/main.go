@@ -20,7 +20,7 @@ const (
 	//ColorReset ...
 	ColorReset string = "\033[0m"
 	//ColorRed ...
-	ColorRed string = "\033[31m" //Not supported
+	ColorRed string = "\033[31m" //Not supported or nil
 	//ColorGreen ...
 	ColorGreen string = "\033[32m" //String
 	//ColorYellow ...
@@ -69,7 +69,7 @@ func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 			break
 		//Case of Regular Value
 		default:
-			_PrintValue(value, detailMode)
+			PrintValue(value, detailMode)
 			break
 		}
 
@@ -113,7 +113,7 @@ func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
 			break
 		//Case of Regular Value
 		default:
-			_PrintValue(value, detailMode)
+			PrintValue(value, detailMode)
 			break
 		}
 
@@ -164,7 +164,8 @@ func _PrintMapKey(key, newDepthString string) {
 	}
 }
 
-func _PrintValue(value interface{}, detailMode bool) {
+//PrintValue ...
+func PrintValue(value interface{}, detailMode bool) {
 	switch reflect.ValueOf(value).Kind() {
 	case
 		reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
