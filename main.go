@@ -1,55 +1,141 @@
 package pprnt
 
 /*
-	Version: 2.0.0
+	Version: 3.1.0
 	Author: Alan Maldonado
 
 	== OpenSource Project ==
 */
 
 import (
-	"errors"
-	"fmt"
 	"log"
 	"reflect"
+	"strings"
 
 	"github.com/DrN3MESiS/pprnt/cleaner"
 	"github.com/DrN3MESiS/pprnt/helpers"
 	"github.com/DrN3MESiS/pprnt/printer"
 )
 
+var (
+	detailMode   bool = false
+	initialDepth int  = 0
+)
+
+//SetDetailMode ...
+/*
+Code: 1 = Enables Detail Mode
+Code: 0 = Disables Detail Mode
+*/
+func SetDetailMode(code int) {
+	switch code {
+	case 1:
+		detailMode = true
+		break
+	case 0:
+		detailMode = false
+		break
+	}
+}
+
+//SetIdentLength ...
+/*
+Defines the length of each identation level
+*/
+func SetIdentLength(length int) {
+	printer.IdentString = strings.Repeat(" ", length)
+}
+
 //Print ...
-/**/
-func Print(data interface{}) error {
-	errMessage := "[pprnt][Print()] > "
-
-	if reflect.ValueOf(data).Kind() == reflect.Struct {
-		mapData, err := helpers.StructToMap(data)
+/*
+Print single object or value
+*/
+func Print(arg interface{}) {
+	errMessage := "[PPRNT]"
+	switch reflect.ValueOf(arg).Kind() {
+	case reflect.Map, reflect.Struct:
+		MTP, err := helpers.ValueToMap(arg)
 		if err != nil {
-			log.Printf("%+v", errMessage+err.Error())
-			return errors.New(errMessage + err.Error())
+			log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+			return
 		}
 
-		depth := 1
-		printer.PrintData(mapData, &depth)
-
-	} else if reflect.ValueOf(data).Type() == reflect.TypeOf(map[string]interface{}{}) {
-		depth := 1
-		printer.PrintData(data.(map[string]interface{}), &depth)
-
-	} else if reflect.ValueOf(data).Type() == reflect.TypeOf(map[string]string{}) {
-		depth := 1
-		toSend := map[string]interface{}{}
-		for key, value := range data.(map[string]string) {
-			toSend[key] = value
+		err = printer.PrintMap(MTP, initialDepth, detailMode)
+		if err != nil {
+			log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+			return
 		}
-		printer.PrintData(toSend, &depth)
+		break
+	case reflect.Array, reflect.Slice:
+		tempArray := arg.([]interface{})
+		err := printer.PrintArray(tempArray, initialDepth, detailMode)
+		if err != nil {
+			log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+			return
+		}
+		break
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64, reflect.Bool,
+		reflect.Float32, reflect.Float64, reflect.String:
+		printer.PrintValue(arg, detailMode)
+		break
+	default:
+		err := printer.PrintNormal(arg, initialDepth, detailMode)
+		if err != nil {
+			log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+			return
+		}
 
-	} else {
-		fmt.Printf("%+v", data)
+		break
 	}
 
-	return nil
+}
+
+//MPrint ...
+/*
+MPrint multiple objects or values
+*/
+func MPrint(args []interface{}) {
+	errMessage := "[PPRNT]"
+	for _, arg := range args {
+		switch reflect.ValueOf(arg).Kind() {
+		case reflect.Map, reflect.Struct:
+			MTP, err := helpers.ValueToMap(arg)
+			if err != nil {
+				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+				return
+			}
+
+			err = printer.PrintMap(MTP, initialDepth, detailMode)
+			if err != nil {
+				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+				return
+			}
+			break
+		case reflect.Array, reflect.Slice:
+			tempArray := arg.([]interface{})
+			err := printer.PrintArray(tempArray, initialDepth, detailMode)
+			if err != nil {
+				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+				return
+			}
+			break
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+			reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64, reflect.Bool,
+			reflect.Float32, reflect.Float64, reflect.String:
+			printer.PrintValue(arg, detailMode)
+			break
+		default:
+			err := printer.PrintNormal(arg, initialDepth, detailMode)
+			if err != nil {
+				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
+				return
+			}
+
+			break
+		}
+	}
+
 }
 
 //SuperDepthMapCleaning ...
