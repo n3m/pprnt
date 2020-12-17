@@ -4,7 +4,7 @@ Pretty Print for Golang (Maps, Models and Normal Variables)
 
 ## How to install
 
-##### Version: 4.0.0
+##### Version: 1.10.0
 
 `go get github.com/DrN3MESiS/pprnt`
 
