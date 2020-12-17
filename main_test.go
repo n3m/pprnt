@@ -61,6 +61,74 @@ func TestPrintNormal(t *testing.T) {
 	}
 }
 
-func TestPrintMap(t *testing.T) {
+func TestPrintMapStruct(t *testing.T) {
+	tests := map[string]interface{}{
+		"map": map[string]interface{}{
+			"test1": nil,
+			"test2": 1,
+			"test3": map[string]interface{}{
+				"test3.1": "lol",
+				"test3.2": nil,
+				"test3.3": []interface{}{
+					nil,
+					1,
+					2,
+				},
+			},
+		},
+		"struct": StructToTest{
+			Name:    "Alan",
+			ID:      654,
+			Enabled: true,
+			Server: &InnerStructForTesting{
+				ID: "897465",
+			},
+		},
+	}
 
+	for key, test := range tests {
+		log.Printf("\n\n\n> Test: %+v", key)
+		Print(test)
+	}
+}
+func TestPrintArray(t *testing.T) {
+	tests := map[string][]interface{}{
+		"arr1": {
+			1,
+			map[string]interface{}{
+				"test1": nil,
+				"test2": 1,
+				"test3": map[string]interface{}{
+					"test3.1": "lol",
+					"test3.2": nil,
+					"test3.3": []interface{}{
+						nil,
+						1,
+						2,
+					},
+				},
+			},
+		},
+		"arr2": {
+			3,
+			nil,
+			StructToTest{
+				Name:    "Alan",
+				ID:      654,
+				Enabled: true,
+				Server: &InnerStructForTesting{
+					ID: "897465",
+				},
+			},
+		},
+		"arr3": {
+			"data",
+			"test",
+		},
+	}
+
+	for key, test := range tests {
+		log.Printf("\n\n\n> Test: %+v", key)
+		Print(test)
+	}
 }

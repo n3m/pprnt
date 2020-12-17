@@ -66,7 +66,7 @@ func Print(arg interface{}) {
 			return
 		}
 		break
-	case reflect.Array:
+	case reflect.Array, reflect.Slice:
 		tempArray := arg.([]interface{})
 		err := printer.PrintArray(tempArray, initialDepth, detailMode)
 		if err != nil {

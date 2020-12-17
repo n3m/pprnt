@@ -63,8 +63,51 @@ func PrintData(mapData map[string]interface{}, depth *int) error {
 //PrintMap ...
 func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 	stringToPrint := _CreateDepthString(depth)
+
 	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "{"))
-	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "}"))
+
+	//INIT
+	newIdentDepth := depth + 1
+	newDepthString := _CreateDepthString(newIdentDepth)
+	for key, value := range MAP {
+
+		fmt.Print(fmt.Sprintf("%s'%+v': ", newDepthString, key))
+
+		newMAPIdentDepth := depth + 1
+		switch reflect.ValueOf(value).Kind() {
+		//Case of Nested Maps or Structs
+		case reflect.Map, reflect.Struct:
+			//Value Print
+			newMAP, err := helpers.ValueToMap(value)
+			if err != nil {
+				return err
+			}
+			newMAPIdentDepth := depth + 1
+			PrintMap(newMAP, newMAPIdentDepth, detailMode)
+			break
+		//Case of Nested Array
+		case reflect.Array, reflect.Slice:
+			arrVal := value.([]interface{})
+			PrintArray(arrVal, newMAPIdentDepth, detailMode)
+			break
+		//Case of Regular Value
+		default:
+			if detailMode {
+				fmt.Printf("%#v,\n", value)
+			} else {
+				fmt.Printf("%+v,\n", value)
+			}
+			break
+		}
+
+	}
+	//FINISH
+
+	if depth > 0 {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "},"))
+	} else {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "}"))
+	}
 	return nil
 }
 
@@ -72,7 +115,47 @@ func PrintMap(MAP map[string]interface{}, depth int, detailMode bool) error {
 func PrintArray(ARR []interface{}, depth int, detailMode bool) error {
 	stringToPrint := _CreateDepthString(depth)
 	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "["))
-	fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "]"))
+
+	//INIT
+	newIdentDepth := depth + 1
+	newDepthString := _CreateDepthString(newIdentDepth)
+	for i, value := range ARR {
+		fmt.Print(fmt.Sprintf("%s[%d]: ", newDepthString, i))
+		newMAPIdentDepth := depth + 1
+		switch reflect.ValueOf(value).Kind() {
+		//Case of Nested Maps or Structs
+		case reflect.Map, reflect.Struct:
+			//Value Print
+			newMAP, err := helpers.ValueToMap(value)
+			if err != nil {
+				return err
+			}
+			newMAPIdentDepth := depth + 1
+			PrintMap(newMAP, newMAPIdentDepth, detailMode)
+			break
+		//Case of Nested Array
+		case reflect.Array, reflect.Slice:
+			arrVal := value.([]interface{})
+			PrintArray(arrVal, newMAPIdentDepth, detailMode)
+			break
+		//Case of Regular Value
+		default:
+			if detailMode {
+				fmt.Printf("%#v,\n", value)
+			} else {
+				fmt.Printf("%+v,\n", value)
+			}
+			break
+		}
+
+	}
+	//FINISH
+
+	if depth > 0 {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "],"))
+	} else {
+		fmt.Println(fmt.Sprintf("%s%+v", stringToPrint, "]"))
+	}
 	return nil
 }
 
