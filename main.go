@@ -6,6 +6,7 @@ package pprnt
 */
 
 import (
+	"fmt"
 	"log"
 	"reflect"
 	"strings"
@@ -107,6 +108,8 @@ func Print(arg interface{}) {
 		break
 	}
 
+	fmt.Println(printer.ColorReset)
+
 }
 
 //MPrint ...
@@ -120,44 +123,8 @@ Expects an 'N' amount of paramters of any type
 TL;DR: Prints an 'N' amount of given parameters
 */
 func MPrint(args ...interface{}) {
-	errMessage := "[PPRNT]"
 	for _, arg := range args {
-		switch reflect.ValueOf(arg).Kind() {
-		case reflect.Map, reflect.Struct:
-			MTP, err := helpers.ValueToMap(arg)
-			if err != nil {
-				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
-				return
-			}
-
-			err = printer.PrintMap(MTP, initialDepth, detailMode)
-			if err != nil {
-				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
-				return
-			}
-			break
-		case reflect.Array, reflect.Slice:
-			tempArray := arg.([]interface{})
-			err := printer.PrintArray(tempArray, initialDepth, detailMode)
-			if err != nil {
-				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
-				return
-			}
-			break
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
-			reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64, reflect.Bool,
-			reflect.Float32, reflect.Float64, reflect.String:
-			printer.PrintValue(arg, detailMode)
-			break
-		default:
-			err := printer.PrintNormal(arg, initialDepth, detailMode)
-			if err != nil {
-				log.Printf("%+v Couldn't print the provided data > %+v", errMessage, err.Error())
-				return
-			}
-
-			break
-		}
+		Print(arg)
 	}
 
 }
