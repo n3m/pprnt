@@ -1,4 +1,4 @@
-# pprnt [![travis](https://travis-ci.com/DrN3MESiS/pprnt.svg?branch=master)](https://travis-ci.com/github/DrN3MESiS/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/DrN3MESiS/pprnt)](https://pkg.go.dev/github.com/DrN3MESiS/pprnt)
+# pprnt [![travis](https://travis-ci.com/DrN3MESiS/pprnt.svg?branch=master)](https://travis-ci.com/github/DrN3MESiS/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/DrN3MESiS/pprnt)](https://pkg.go.dev/github.com/DrN3MESiS/pprnt) [![goreport](https://goreportcard.com/badge/github.com/drn3mesis/pprnt)](https://goreportcard.com/report/github.com/drn3mesis/pprnt)
 
 Pretty Print for Golang (Maps, Models and Normal Variables)
 
