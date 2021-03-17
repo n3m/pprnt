@@ -1,12 +1,12 @@
-# pprnt [![travis](https://travis-ci.com/DrN3MESiS/pprnt.svg?branch=master)](https://travis-ci.com/github/DrN3MESiS/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/DrN3MESiS/pprnt)](https://pkg.go.dev/github.com/DrN3MESiS/pprnt) [![goreport](https://goreportcard.com/badge/github.com/drn3mesis/pprnt)](https://goreportcard.com/report/github.com/drn3mesis/pprnt)
+# pprnt [![travis](https://travis-ci.com/n3m/pprnt.svg?branch=master)](https://travis-ci.com/github/n3m/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/n3m/pprnt)](https://pkg.go.dev/github.com/n3m/pprnt) [![goreport](https://goreportcard.com/badge/github.com/n3m/pprnt)](https://goreportcard.com/report/github.com/n3m/pprnt)
 
 Pretty Print for Golang (Maps, Models and Normal Variables)
 
 ## How to install
 
-##### Version: 1.10.2
+##### Version: 1.10.3
 
-`go get github.com/DrN3MESiS/pprnt`
+`go get github.com/n3m/pprnt`
 
 ## Description
 
