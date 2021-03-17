@@ -1,4 +1,4 @@
-module github.com/DrN3MESiS/pprnt
+module github.com/n3m/pprnt
 
 go 1.13
 

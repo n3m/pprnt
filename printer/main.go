@@ -5,8 +5,8 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/DrN3MESiS/pprnt/helpers"
 	"github.com/mattn/go-isatty"
+	"github.com/n3m/pprnt/helpers"
 )
 
 var (

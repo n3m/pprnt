@@ -1,7 +1,7 @@
 package pprnt
 
 /*
-	Version: 1.10.2
+	Version: 1.10.3
 	Author: Alan Maldonado
 */
 
@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/DrN3MESiS/pprnt/cleaner"
-	"github.com/DrN3MESiS/pprnt/helpers"
-	"github.com/DrN3MESiS/pprnt/printer"
+	"github.com/n3m/pprnt/cleaner"
+	"github.com/n3m/pprnt/helpers"
+	"github.com/n3m/pprnt/printer"
 )
 
 var (
