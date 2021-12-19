@@ -87,6 +87,7 @@ func _PrintMap(arg interface{}, key *string, endChar *string) string {
 }
 
 func _PrintStruct(arg interface{}, key *string, endChar *string) string {
+
 	lvlStr := _CreateLevelString()
 	str := ""
 

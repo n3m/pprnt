@@ -9,13 +9,17 @@ import (
 
 func Test_PrintPointerString(t *testing.T) {
 	cases := []*string{
-		new(string), new(string), new(string), new(string), new(string),
+		GetStringAdddress("t1"),
+		GetStringAdddress("t2"),
+		GetStringAdddress("t3"),
+		GetStringAdddress("t4"),
+		GetStringAdddress("t5"),
 	}
 
 	for _, c := range cases {
 		output := Print(c)
 
-		assert.Equal(t, fmt.Sprintf("*\"%+v\"\n", c), output)
+		assert.Equal(t, fmt.Sprintf("\"%+v\"\n", *c), output)
 	}
 }
 
@@ -27,7 +31,7 @@ func Test_PrintPointerInt(t *testing.T) {
 	for _, c := range cases {
 		output := Print(c)
 
-		assert.Equal(t, fmt.Sprintf("*%+v\n", c), output)
+		assert.Equal(t, fmt.Sprintf("%+v\n", *c), output)
 	}
 }
 
@@ -39,7 +43,7 @@ func Test_PrintPointerBoolean(t *testing.T) {
 	for _, c := range cases {
 		output := Print(c)
 
-		assert.Equal(t, fmt.Sprintf("*%+v\n", c), output)
+		assert.Equal(t, fmt.Sprintf("%+v\n", *c), output)
 	}
 }
 
@@ -51,6 +55,6 @@ func Test_PrintPointerFloat64(t *testing.T) {
 	for _, c := range cases {
 		output := Print(c)
 
-		assert.Equal(t, fmt.Sprintf("*%+v\n", c), output)
+		assert.Equal(t, fmt.Sprintf("%+v\n", *c), output)
 	}
 }

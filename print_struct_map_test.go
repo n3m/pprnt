@@ -26,19 +26,20 @@ func Test_PrintStruct(t *testing.T) {
 	}
 
 	output := Print(caseT)
-	expected :=
-		`{
-		"A": "Howdy",
-		"B": 2,
-		"C": true,
-		"D": 1.5000000004,
-		"ARR": [
-				"TEST",
-		],
-}
-`
 
-	assert.Equal(t, expected, output)
+	tests := []string{
+		"\t\t\"A\": \"Howdy\",\n",
+		"\t\t\"B\": 2,\n",
+		"\t\t\"C\": true,\n",
+		"\t\t\"D\": 1.5000000004,\n",
+		"\t\t\"ARR\": [\n",
+		"\t\t\t\t\"TEST\",\n",
+		"\t\t],\n",
+	}
+
+	for _, test := range tests {
+		assert.Contains(t, output, test)
+	}
 }
 
 func Test_PrintMap(t *testing.T) {
@@ -50,14 +51,24 @@ func Test_PrintMap(t *testing.T) {
 	}
 
 	output := Print(caseT)
-	expected :=
-		`{
-		"A": "Howdy",
-		"B": 2,
-		"C": true,
-		"D": 1.5000000004,
-}
-`
-	assert.Equal(t, expected, output)
 
+	tests := []string{
+		"\t\t\"A\": \"Howdy\",\n",
+		"\t\t\"B\": 2,\n",
+		"\t\t\"C\": true,\n",
+		"\t\t\"D\": 1.5000000004,\n",
+	}
+
+	for _, test := range tests {
+		assert.Contains(t, output, test)
+	}
+
+	// 	expected :=
+	// 		`{
+	// 		"A": "Howdy",
+	// 		"B": 2,
+	// 		"C": true,
+	// 		"D": 1.5000000004,
+	// }
+	// `
 }

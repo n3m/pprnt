@@ -2,7 +2,6 @@ package pprnt
 
 import (
 	"fmt"
-	"log"
 	"reflect"
 	"strings"
 )
@@ -30,11 +29,14 @@ func _ProcessArchitecture(arg interface{}, key *string, endChar *string) string 
 		return _PrintMap(reflect.Indirect(value).Interface(), key, endChar)
 	case reflect.Struct:
 		return _PrintStruct(reflect.Indirect(value).Interface(), key, endChar)
-	case reflect.Chan:
-	case reflect.Interface:
+	// case reflect.Chan:
+	// case reflect.Interface:
 	case reflect.Ptr:
-	case reflect.UnsafePointer:
-	case reflect.Uintptr:
+		newValue := value.Elem()
+		newValue = reflect.Indirect(newValue)
+		return _ProcessArchitecture(newValue.Interface(), key, endChar)
+		// case reflect.UnsafePointer:
+		// case reflect.Uintptr:
 	}
 
 	return _PrintPrimitive(reflect.Indirect(value).Interface(), key, endChar)
@@ -52,7 +54,7 @@ func _PrintPrimitive(arg interface{}, key *string, endChar *string) string {
 		return _PrintFloat(arg, key, endChar)
 	default:
 
-		log.Printf("!! %+v", arg)
-		return fmt.Sprintf("%+v", arg)
+		fmt.Printf("[!!] %+v\n", arg)
+		return fmt.Sprintf("%+v\n", arg)
 	}
 }
