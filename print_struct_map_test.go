@@ -38,7 +38,9 @@ func Test_PrintStruct(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Contains(t, output, test)
+		if !assert.Contains(t, output, test) {
+			t.Fatalf("Case test failed > " + test)
+		}
 	}
 }
 
@@ -60,7 +62,9 @@ func Test_PrintMap(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Contains(t, output, test)
+		if !assert.Contains(t, output, test) {
+			t.Fatalf("Case test failed > " + test)
+		}
 	}
 
 	// 	expected :=
