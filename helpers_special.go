@@ -5,19 +5,41 @@ import (
 	"reflect"
 )
 
+func _PrintSpecialInitSetup(str, lvlStr string, key *string, initSetupChar string) (string, *string) {
+	if key != nil {
+		str += lvlStr + "\"" + *key + "\"" + ": "
+		key = nil
+	} else {
+		str += lvlStr
+	}
+
+	str += initSetupChar + "\n"
+	fmt.Print(str)
+
+	return str, key
+}
+
+func _PrintSpecialEndSetup(str, lvlStr string, endChar *string, endSetupChar string) string {
+	finalStrToPrint := lvlStr + endSetupChar
+	if _state.Level > 0 {
+		finalStrToPrint += ","
+	}
+
+	if endChar != nil {
+		finalStrToPrint += *endChar
+	} else {
+		finalStrToPrint += "\n"
+	}
+
+	return finalStrToPrint
+}
+
 func _PrintSliceOrArray(arg interface{}, key *string, endChar *string) string {
 	str := ""
 	lvlStr := _CreateLevelString()
 
 	// Initial Setup
-	if key != nil {
-		str += lvlStr + "\"" + *key + "\"" + ": "
-	} else {
-		str += lvlStr
-	}
-
-	str += "[\n"
-	fmt.Print(str)
+	str, key = _PrintSpecialInitSetup(str, lvlStr, key, "[")
 	_state.Level++
 
 	// Processing each element
@@ -32,17 +54,7 @@ func _PrintSliceOrArray(arg interface{}, key *string, endChar *string) string {
 
 	// Final Setup
 	_state.Level--
-	finalStrToPrint := lvlStr + "]"
-	if _state.Level > 0 {
-		finalStrToPrint += ","
-	}
-
-	if endChar != nil {
-		finalStrToPrint += *endChar
-	} else {
-		finalStrToPrint += "\n"
-	}
-
+	finalStrToPrint := _PrintSpecialEndSetup(str, lvlStr, endChar, "]")
 	str += finalStrToPrint
 	fmt.Print(finalStrToPrint)
 	return str
@@ -53,31 +65,22 @@ func _PrintMap(arg interface{}, key *string, endChar *string) string {
 	str := ""
 
 	// Initial Setup
-	if key != nil {
-		str += lvlStr + "\"" + *key + "\"" + ": "
-	} else {
-		str += lvlStr
-	}
-
-	str += "{\n"
-	fmt.Print(str)
+	str, _ = _PrintSpecialInitSetup(str, lvlStr, key, "{")
 	_state.Level++
 
 	// Processing each element
+	mapObj := reflect.ValueOf(arg)
+	for _, key := range mapObj.MapKeys() {
+		value := mapObj.MapIndex(key).Interface()
+
+		str += _ProcessArchitecture(value,
+			GetStringAdddress(key.String()),
+			endChar)
+	}
 
 	// Final Setup
 	_state.Level--
-	finalStrToPrint := lvlStr + "}"
-	if _state.Level > 0 {
-		finalStrToPrint += ","
-	}
-
-	if endChar != nil {
-		finalStrToPrint += *endChar
-	} else {
-		finalStrToPrint += "\n"
-	}
-
+	finalStrToPrint := _PrintSpecialEndSetup(str, lvlStr, endChar, "}")
 	str += finalStrToPrint
 	fmt.Print(finalStrToPrint)
 	return str
@@ -88,14 +91,7 @@ func _PrintStruct(arg interface{}, key *string, endChar *string) string {
 	str := ""
 
 	// Initial Setup
-	if key != nil {
-		str += lvlStr + "\"" + *key + "\"" + ": "
-	} else {
-		str += lvlStr
-	}
-
-	str += "{\n"
-	fmt.Print(str)
+	str, _ = _PrintSpecialInitSetup(str, lvlStr, key, "{")
 	_state.Level++
 
 	// Processing each element
@@ -103,23 +99,14 @@ func _PrintStruct(arg interface{}, key *string, endChar *string) string {
 	structValues = reflect.Indirect(structValues)
 
 	for j := 0; j < structValues.NumField(); j++ {
-		fieldItem := structValues.Field(j)
-		str += _ProcessArchitecture(fieldItem.Interface(), key, endChar)
+		str += _ProcessArchitecture(structValues.Field(j).Interface(),
+			GetStringAdddress(structValues.Type().Field(j).Name),
+			endChar)
 	}
 
 	// Final Setup
 	_state.Level--
-	finalStrToPrint := lvlStr + "}"
-	if _state.Level > 0 {
-		finalStrToPrint += ","
-	}
-
-	if endChar != nil {
-		finalStrToPrint += *endChar
-	} else {
-		finalStrToPrint += "\n"
-	}
-
+	finalStrToPrint := _PrintSpecialEndSetup(str, lvlStr, endChar, "}")
 	str += finalStrToPrint
 	fmt.Print(finalStrToPrint)
 	return str

@@ -37,6 +37,7 @@ func _DoPrintPrimitive(format string, key *string, endChar *string, elem interfa
 
 	if key != nil {
 		strToPrint += lvlStr + "\"" + *key + "\"" + ": "
+		key = nil
 	} else {
 		strToPrint += lvlStr
 	}
@@ -50,9 +51,7 @@ func _DoPrintPrimitive(format string, key *string, endChar *string, elem interfa
 	if endChar != nil {
 		strToPrint += *endChar
 	} else {
-		if _state.Level > 0 {
-			strToPrint += "\n"
-		}
+		strToPrint += "\n"
 	}
 
 	fmt.Print(strToPrint)
