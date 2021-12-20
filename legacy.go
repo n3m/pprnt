@@ -1,7 +1,10 @@
-package cleaner
+package pprnt
+
+type deprecatedHolder struct {
+}
 
 //CleanMap ...
-func CleanMap(clmap map[string]interface{}) map[string]interface{} {
+func (dh *deprecatedHolder) CleanMap(clmap map[string]interface{}) map[string]interface{} {
 	newMap := map[string]interface{}{}
 	for key, value := range clmap {
 		if value == nil {
@@ -11,11 +14,11 @@ func CleanMap(clmap map[string]interface{}) map[string]interface{} {
 		switch value.(type) {
 		case map[string]interface{}:
 			childMap := value.(map[string]interface{})
-			newMap[key] = CleanMap(childMap)
+			newMap[key] = dh.CleanMap(childMap)
 			break
 		case []interface{}:
 			arr := value.([]interface{})
-			newMap[key] = CleanArray(arr)
+			newMap[key] = dh.CleanArray(arr)
 			break
 		default:
 			newMap[key] = value
@@ -26,7 +29,7 @@ func CleanMap(clmap map[string]interface{}) map[string]interface{} {
 }
 
 //CleanArray ...
-func CleanArray(clarr []interface{}) []interface{} {
+func (dh *deprecatedHolder) CleanArray(clarr []interface{}) []interface{} {
 	newArr := []interface{}{}
 	for _, each := range clarr {
 		if each == nil {
@@ -35,11 +38,11 @@ func CleanArray(clarr []interface{}) []interface{} {
 		switch each.(type) {
 		case map[string]interface{}:
 			childMap := each.(map[string]interface{})
-			newArr = append(newArr, CleanMap(childMap))
+			newArr = append(newArr, dh.CleanMap(childMap))
 			break
 		case []interface{}:
 			arr := each.([]interface{})
-			newArr = append(newArr, CleanArray(arr))
+			newArr = append(newArr, dh.CleanArray(arr))
 			break
 		default:
 			newArr = append(newArr, each)

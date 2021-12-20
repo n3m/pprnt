@@ -4,7 +4,7 @@ Pretty Print for Golang (Maps, Models and Normal Variables)
 
 ## How to install
 
-##### Version: 1.10.3
+##### Version: 1.11.0
 
 `go get github.com/n3m/pprnt`
 
@@ -19,10 +19,10 @@ Pretty Print is a Golang Package designed to print Maps and Structs as if they w
 ```go
 package main
 
-import "github.com/DrN3MESiS/pprnt"
+import "github.com/n3m/pprnt"
 
 func main(){
-  example := map[string]interface{}{"get": map[string]interface{}{"some":"brother"}}
+  example := map[string]interface{}{"hell": map[string]interface{}{"yeah":"brother"}}
 
   // Print(interface) :: The function Print() expects an interface to be passed as parameters
   // So you can pass any type of variable
@@ -36,8 +36,8 @@ func main(){
 $ go run .
 
 {
-   "get": {
-      "some": "brother"
+   "hell": {
+      "yeah": "brother"
    }
 }
 ```
