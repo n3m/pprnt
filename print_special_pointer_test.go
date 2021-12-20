@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func Test_PrintMapPointerString(t *testing.T) {
@@ -95,7 +94,6 @@ func Test_PrintHyperAnnidated(t *testing.T) {
 				C: false,
 				D: 1,
 			},
-			"Data": primitive.NilObjectID,
 		},
 	}
 
