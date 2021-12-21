@@ -49,7 +49,20 @@ func _PrintSliceOrArray(arg interface{}, key *string, endChar *string) string {
 		item := items.Index(i)
 		item = reflect.Indirect(item)
 
-		str += _ProcessArchitecture(item.Interface(), key, endChar)
+		var value interface{}
+
+		if item.CanInterface() {
+			if item.IsZero() {
+				value = nil
+			} else {
+				value = item.Interface()
+			}
+		} else {
+			value = nil
+		}
+
+		str += _ProcessArchitecture(value, key, endChar)
+
 	}
 
 	// Final Setup
@@ -71,7 +84,18 @@ func _PrintMap(arg interface{}, key *string, endChar *string) string {
 	// Processing each element
 	mapObj := reflect.ValueOf(arg)
 	for _, key := range mapObj.MapKeys() {
-		value := mapObj.MapIndex(key).Interface()
+
+		var value interface{}
+
+		if mapObj.MapIndex(key).CanInterface() {
+			if mapObj.MapIndex(key).IsZero() {
+				value = nil
+			} else {
+				value = mapObj.MapIndex(key).Interface()
+			}
+		} else {
+			value = nil
+		}
 
 		str += _ProcessArchitecture(value,
 			GetStringAdddress(key.String()),
@@ -100,9 +124,23 @@ func _PrintStruct(arg interface{}, key *string, endChar *string) string {
 	structValues = reflect.Indirect(structValues)
 
 	for j := 0; j < structValues.NumField(); j++ {
-		str += _ProcessArchitecture(structValues.Field(j).Interface(),
+		field := structValues.Field(j)
+
+		var value interface{}
+
+		if field.CanInterface() {
+			if field.IsZero() {
+				value = nil
+			} else {
+				value = field.Interface()
+			}
+		} else {
+			value = nil
+		}
+		str += _ProcessArchitecture(value,
 			GetStringAdddress(structValues.Type().Field(j).Name),
 			endChar)
+
 	}
 
 	// Final Setup

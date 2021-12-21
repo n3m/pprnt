@@ -14,12 +14,6 @@ func Test_PrintSlice(t *testing.T) {
 
 	output := Print(cases)
 
-	expected :=
-		`[
-		"Howdy",
-		<nil>,
-]
-`
-
+	expected := "[\n\t\t\"Howdy\",\n\t\t<nil>,\n]\n"
 	assert.Equal(t, expected, output)
 }
