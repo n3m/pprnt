@@ -11,18 +11,13 @@ func (dh *deprecatedHolder) CleanMap(clmap map[string]interface{}) map[string]in
 			continue
 		}
 
-		switch value.(type) {
+		switch value := value.(type) {
 		case map[string]interface{}:
-			childMap := value.(map[string]interface{})
-			newMap[key] = dh.CleanMap(childMap)
-			break
+			newMap[key] = dh.CleanMap(value)
 		case []interface{}:
-			arr := value.([]interface{})
-			newMap[key] = dh.CleanArray(arr)
-			break
+			newMap[key] = dh.CleanArray(value)
 		default:
 			newMap[key] = value
-			break
 		}
 	}
 	return newMap
@@ -35,18 +30,13 @@ func (dh *deprecatedHolder) CleanArray(clarr []interface{}) []interface{} {
 		if each == nil {
 			continue
 		}
-		switch each.(type) {
+		switch each := each.(type) {
 		case map[string]interface{}:
-			childMap := each.(map[string]interface{})
-			newArr = append(newArr, dh.CleanMap(childMap))
-			break
+			newArr = append(newArr, dh.CleanMap(each))
 		case []interface{}:
-			arr := each.([]interface{})
-			newArr = append(newArr, dh.CleanArray(arr))
-			break
+			newArr = append(newArr, dh.CleanArray(each))
 		default:
 			newArr = append(newArr, each)
-			break
 		}
 	}
 
