@@ -22,7 +22,7 @@ func _PrintBoolean(elem interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatBoolean, key, endChar, elem)
 }
 
-func _PrintNil(elem interface{}, key, endChar *string) string {
+func _PrintNil(_ interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatNil, key, endChar, "<nil>")
 }
 

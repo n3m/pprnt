@@ -2,7 +2,7 @@ package pprnt
 
 import "testing"
 
-func Test_Deprecated_Print(t *testing.T) {
+func Test_Deprecated_Print(_ *testing.T) {
 
 	Deprecated.CleanMap(map[string]interface{}{})
 
