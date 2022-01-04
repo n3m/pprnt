@@ -4,13 +4,13 @@ Pretty Print for Golang (Print anything with format basically)
 
 ## Get Started
 
-##### Version: 1.12.0
+##### Version: 1.12.1
 
 `go get github.com/n3m/pprnt`
 
 ## Description
 
-Designed to Pretty Print Stuff on your Terminal, pretty basic and synchronous. 
+Designed to Pretty Print Stuff on your Terminal, pretty basic and synchronous.
 
 ### Usage
 

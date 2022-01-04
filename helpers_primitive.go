@@ -10,27 +10,27 @@ const formatBoolean string = "%t"
 const formatNil string = "%s"
 const formatFloat string = "%+v"
 
-func _PrintString(elem interface{}, key *string, endChar *string) string {
+func _PrintString(elem interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatString, key, endChar, elem)
 }
 
-func _PrintInt(elem interface{}, key *string, endChar *string) string {
+func _PrintInt(elem interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatInt, key, endChar, elem)
 }
 
-func _PrintBoolean(elem interface{}, key *string, endChar *string) string {
+func _PrintBoolean(elem interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatBoolean, key, endChar, elem)
 }
 
-func _PrintNil(elem interface{}, key *string, endChar *string) string {
+func _PrintNil(_ interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatNil, key, endChar, "<nil>")
 }
 
-func _PrintFloat(elem interface{}, key *string, endChar *string) string {
+func _PrintFloat(elem interface{}, key, endChar *string) string {
 	return _DoPrintPrimitive(formatFloat, key, endChar, elem)
 }
 
-func _DoPrintPrimitive(format string, key *string, endChar *string, elem interface{}) string {
+func _DoPrintPrimitive(format string, key, endChar *string, elem interface{}) string {
 	lvlStr := _CreateLevelString()
 
 	strToPrint := ""
