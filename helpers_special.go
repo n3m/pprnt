@@ -129,11 +129,7 @@ func _PrintStruct(arg interface{}, key *string, endChar *string) string {
 		var value interface{}
 
 		if field.CanInterface() {
-			if field.IsZero() {
-				value = nil
-			} else {
-				value = field.Interface()
-			}
+			value = field.Interface()
 		} else {
 			value = nil
 		}
