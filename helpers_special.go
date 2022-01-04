@@ -19,7 +19,7 @@ func _PrintSpecialInitSetup(str, lvlStr string, key *string, initSetupChar strin
 	return str, key
 }
 
-func _PrintSpecialEndSetup(str, lvlStr string, endChar *string, endSetupChar string) string {
+func _PrintSpecialEndSetup(_, lvlStr string, endChar *string, endSetupChar string) string {
 	finalStrToPrint := lvlStr + endSetupChar
 	if _state.Level > 0 {
 		finalStrToPrint += ","
