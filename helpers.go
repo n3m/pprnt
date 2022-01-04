@@ -14,7 +14,7 @@ func _CreateLevelString() string {
 	return strings.Repeat(lvl, _state.Level)
 }
 
-func _ProcessArchitecture(arg interface{}, key *string, endChar *string) string {
+func _ProcessArchitecture(arg interface{}, key, endChar *string) string {
 	value := reflect.ValueOf(arg)
 
 	if arg == nil {
@@ -42,7 +42,7 @@ func _ProcessArchitecture(arg interface{}, key *string, endChar *string) string 
 	return _PrintPrimitive(reflect.Indirect(value).Interface(), key, endChar)
 }
 
-func _PrintPrimitive(arg interface{}, key *string, endChar *string) string {
+func _PrintPrimitive(arg interface{}, key, endChar *string) string {
 	switch reflect.TypeOf(arg).Kind() {
 	case reflect.String:
 		return _PrintString(arg, key, endChar)

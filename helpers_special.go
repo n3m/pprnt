@@ -34,7 +34,7 @@ func _PrintSpecialEndSetup(str, lvlStr string, endChar *string, endSetupChar str
 	return finalStrToPrint
 }
 
-func _PrintSliceOrArray(arg interface{}, key *string, endChar *string) string {
+func _PrintSliceOrArray(arg interface{}, key, endChar *string) string {
 	str := ""
 	lvlStr := _CreateLevelString()
 
@@ -73,7 +73,7 @@ func _PrintSliceOrArray(arg interface{}, key *string, endChar *string) string {
 	return str
 }
 
-func _PrintMap(arg interface{}, key *string, endChar *string) string {
+func _PrintMap(arg interface{}, key, endChar *string) string {
 	lvlStr := _CreateLevelString()
 	str := ""
 
@@ -110,7 +110,7 @@ func _PrintMap(arg interface{}, key *string, endChar *string) string {
 	return str
 }
 
-func _PrintStruct(arg interface{}, key *string, endChar *string) string {
+func _PrintStruct(arg interface{}, key, endChar *string) string {
 
 	lvlStr := _CreateLevelString()
 	str := ""
