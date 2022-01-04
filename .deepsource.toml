@@ -5,4 +5,8 @@ name = "go"
 enabled = true
 
   [analyzers.meta]
-  import_paths = ["github.com/DrN3MESiS/pprnt"]
+  import_root = "github.com/n3m/pprnt"
+
+[[transformers]]
+name = "gofmt"
+enabled = true
