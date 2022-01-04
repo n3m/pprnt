@@ -1,4 +1,4 @@
-# pprnt [![travis](https://travis-ci.com/n3m/pprnt.svg?branch=master)](https://travis-ci.com/github/n3m/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/n3m/pprnt)](https://pkg.go.dev/github.com/n3m/pprnt) [![goreport](https://goreportcard.com/badge/github.com/n3m/pprnt)](https://goreportcard.com/report/github.com/n3m/pprnt)
+# pprnt [![travis](https://travis-ci.com/n3m/pprnt.svg?branch=master)](https://travis-ci.com/github/n3m/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/n3m/pprnt)](https://pkg.go.dev/github.com/n3m/pprnt) [![goreport](https://goreportcard.com/badge/github.com/n3m/pprnt)](https://goreportcard.com/report/github.com/n3m/pprnt) [![DeepSource](https://deepsource.io/gh/n3m/pprnt.svg/?label=active+issues&show_trend=true&token=gVR2BcDE_9N2GxrutCr1T202)](https://deepsource.io/gh/n3m/pprnt/?ref=repository-badge)
 
 Pretty Print for Golang (Print anything with format basically)
 
