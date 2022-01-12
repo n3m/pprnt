@@ -1,4 +1,5 @@
 # pprnt [![travis](https://travis-ci.com/n3m/pprnt.svg?branch=master)](https://travis-ci.com/github/n3m/pprnt) [![gopls](https://pkg.go.dev/badge/github.com/n3m/pprnt)](https://pkg.go.dev/github.com/n3m/pprnt) [![goreport](https://goreportcard.com/badge/github.com/n3m/pprnt)](https://goreportcard.com/report/github.com/n3m/pprnt) [![DeepSource](https://deepsource.io/gh/n3m/pprnt.svg/?label=active+issues&show_trend=true&token=gVR2BcDE_9N2GxrutCr1T202)](https://deepsource.io/gh/n3m/pprnt/?ref=repository-badge)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fn3m%2Fpprnt.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fn3m%2Fpprnt?ref=badge_shield)
 
 Pretty Print for Golang (Print anything with format basically)
 
@@ -54,3 +55,7 @@ Imagine that you have a really big struct/map and you want to visually understan
 
 This package is designed to be ran on development environments. Beware of turning on using Pretty Printing from this package while on Production Mode, since it can generate performance issues, due to the use of recursion.
 This package is released "as-is" and I'm not responsible for any liabilty that could result due to the use of this package.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fn3m%2Fpprnt.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fn3m%2Fpprnt?ref=badge_large)
